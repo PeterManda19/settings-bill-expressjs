@@ -1,0 +1,14 @@
+// POST route '/action'
+app.post('/action', function(req, res){
+  res.send('Settings Bill App')
+});
+
+// GET route '/actions'
+app.post('/actions', function(req, res){
+  res.send('Settings Bill App')
+});
+
+// GET route '/actions/:type'
+app.post('/actiions/:type  ', function(req, res){
+  res.send('Settings Bill App')
+});
