@@ -1,6 +1,5 @@
 import { equal, deepEqual } from 'assert';
-
-import SettingsBill from '../settings-bill';
+import SettingsBill from '../settings-bill.js';
 
 describe('settings-bill', function(){
 
