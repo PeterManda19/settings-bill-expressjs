@@ -1,6 +1,6 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
-import SettingsBill from '../settings-bill.js';
+import SettingsBill from './settings-bill.js';
 
 var app = express();
 var settingsBill = SettingsBill();
