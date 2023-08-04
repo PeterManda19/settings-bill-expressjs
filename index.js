@@ -2,8 +2,8 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import SettingsBill from '../settings-bill.js';
 
-// const app = express();
-// const SettingsBill = SettingsBill();
+var app = express();
+var settingsBill = SettingsBill();
 
 // Set up Handlebars view engine
 app.engine('handlebars', engine());
@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 // GET route '/'
 app.get('/', function(req, res){
   res.render('index', {
-    settings: SettingsBill.getSettings()
+    settings: settingsBill.getSettings()
   });
 });
 
@@ -31,13 +31,13 @@ app.get('/', function(req, res){
 app.post('/settings', function(req, res){
   console.log(req.body);
 
-  SettingsBill.setSettings({
+  settingsBill.setSettings({
     callCost: req.body.callCost,
     smsCost: req.body.smsCost,
     warningLevel: req.body.warningLevel,
     criticalLevel: req.body.criticalLevel
   });
-  console.log(SettingsBill.getSettings());
+  console.log(settingsBill.getSettings());
 
   res.redirect('/');
 });
