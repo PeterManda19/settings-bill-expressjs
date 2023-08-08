@@ -1,6 +1,7 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import SettingsBill from './settings-bill.js';
+import bodyParser from 'body-parser';
 
 var app = express();
 var settingsBill = SettingsBill();
@@ -16,9 +17,16 @@ app.set('view options', { layout: 'main' });
 // Serve static resources from the 'public' folder
 app.use(express.static('public'));
 
-// Instead of body-parser, use inbuilt express.json() and express.urlencoded()
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// // Instead of body-parser, use inbuilt express.json() and express.urlencoded()
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 
 // GET route '/'
 app.get('/', function(req, res){
