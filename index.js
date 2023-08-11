@@ -53,6 +53,26 @@ app.post('/settings', function(req, res){
   res.redirect('/');
 });
 
+// POST route '/action'
+app.post('/action', function(req, res){
+  const billType = req.body.billType; // 'call' or 'sms'
+
+  if (billType === 'call' || billType === 'sms') {
+    const timestamp = new Date();
+    const cost = billType === 'call' ? settingsBill.getSettings().callCost : settingsBill.getSettings().smsCost;
+    
+    settingsBill.recordAction({
+      type: billType,
+      cost: cost,
+      timestamp: timestamp
+    });
+
+    res.redirect('/');
+  } else {
+    res.status(400).send('Invalid bill type');
+  }
+});
+
 const PORT = process.env.PORT || 3011;
 
 app.listen(3011, function(){
