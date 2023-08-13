@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { fileURLToPath} from 'url';
 import path from 'path'; 
 import { dirname } from 'path';
+import moment from 'moment'; // Import the moment library
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,7 +35,8 @@ app.use(bodyParser.json())
 // GET route '/'
 app.get('/', function(req, res){
   res.render('index', {
-    settings: settingsBill.getSettings()
+    settings: settingsBill.getSettings(),
+    totals: settingsBill.totals()
   });
 });
 
@@ -55,22 +57,74 @@ app.post('/settings', function(req, res){
 
 // POST route '/action'
 app.post('/action', function(req, res){
-  const billType = req.body.billType; // 'call' or 'sms'
+  //const billType = req.body.billType; // 'call' or 'sms'
 
-  if (billType === 'call' || billType === 'sms') {
-    const timestamp = new Date();
-    const cost = billType === 'call' ? settingsBill.getSettings().callCost : settingsBill.getSettings().smsCost;
+  // if (billType === 'call' || billType === 'sms') {
+  //   const timestamp = new Date();
+  //   const cost = billType === 'call' ? settingsBill.getSettings().callCost : settingsBill.getSettings().smsCost;
     
-    settingsBill.recordAction({
-      type: billType,
-      cost: cost,
-      timestamp: timestamp
-    });
+  //   settingsBill.recordAction({
+  //     type: billType,
+  //     cost: cost,
+  //     timestamp: timestamp
+  //   });
 
-    res.redirect('/');
-  } else {
-    res.status(400).send('Invalid bill type');
-  }
+  //   res.redirect('/');
+  // } else {
+  //   res.status(400).send('Invalid bill type');
+  // }
+  //console.log(req.body.actionType);
+  settingsBill.recordAction(req.body.actionType)
+  res.redirect('/');
+});
+
+// GET route '/actions'
+app.get('/actions', function(req, res) {
+//   const actions = settingsBill.actions(); // Retrieve all recorded actions
+//   let totalCost = 0;
+
+//   // Calculate the total cost of all actions
+//   actions.forEach(action => {
+//     totalCost += action.cost;
+//   });
+
+//   // Render the 'actions' view, passing the actions and total cost to the template
+//   res.render('actions', {
+//     actions: actions.map(action => ({
+//       ...action,
+//       timestamp: moment(action.timestamp).fromNow() // Format timestamp using 'fromNow'
+//     })),
+//     totalCost: totalCost.toFixed(2) // Format total cost to two decimal places
+//   });
+    res.render('actions', {actions: settingsBill.actions});
+});
+
+// GET route '/actions/:type'
+app.get('/actions/:actionType', function(req, res) {
+  const actionType = req.params.actionType; // 'sms' or 'call'
+
+//   if (actionType === 'sms' || actionType === 'call') {
+//     const actionsOfType = settingsBill.actionsForType(actionType); // Retrieve actions of the specified type
+//     let totalCost = 0;
+
+//     // Calculate the total cost of actions of the selected type
+//     actionsOfType.forEach(action => {
+//       totalCost += action.cost;
+//     });
+
+//     // Render the 'actionsType' view, passing the actions and total cost to the template
+//     res.render('actionsType', {
+//       actions: actionsOfType.map(action => ({
+//         ...action,
+//         timestamp: moment(action.timestamp).fromNow()
+//       })),
+//       actionType,
+//       totalCost: totalCost.toFixed(2)
+//     });
+//   } else {
+//     res.status(400).send('Invalid action type');
+//   }
+    res.render('actions', {actions: settingsBill.actionsFor(actionType)});
 });
 
 const PORT = process.env.PORT || 3011;
