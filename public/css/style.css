@@ -4,19 +4,28 @@
     border : 1px solid #ddd;
     height: auto;
     margin-bottom: 1em;
-  }
+}
   
-  .warning {
-    color: orange;
-    font-weight: bold;
-  }
+.warning {
+  color: orange;
+  font-weight: bold;
+}
+
+.danger {
+  color: red;
+  font-weight: bold;
+}
+
+.total {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.reset-form {
+  margin-top: 1em;
+}
+
+.hidden {
+  display: none;
+}
   
-  .danger {
-    color: crimson;
-    font-weight: bold;
-  }
-  
-  .total {
-    font-weight: bold;
-    font-size: 2em;
-  }

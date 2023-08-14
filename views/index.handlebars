@@ -56,7 +56,7 @@
                       <td>
                         <a href="/actions">Total</a>
                       </td>
-                      <td> R<span class="totalSettings">{{totals.grandTotal}}</span> </td>
+                      <td class="{{totals.totalClass}}"> R<span class="totalSettings">{{totals.grandTotal}}</span> </td>
                     </tr>
                   </table>
 
@@ -73,7 +73,11 @@
                 <label for="">Critical level</label>
                 <input class="u-full-width criticalLevelSetting" type="number"  name="criticalLevel" placeholder="eg. 65.00" value="{{settings.criticalLevel}}">
                 <button class="button-primary updateSettings" type="submit" name="button">Update settings</button>
-              </form>    
+              </form>   
+
+              <form class="reset-form" action="/reset" method="POST">
+                <button class="button" type="submit" name="button">Reset All</button>
+              </form>
             </div>
           </div>
         </div>

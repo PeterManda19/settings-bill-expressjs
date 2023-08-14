@@ -111,6 +111,15 @@ export default function SettingsBill() {
         return total >= criticalLevel;
     }
 
+    // Function to reset all settings and actionList
+    function reset() {
+        smsCost = 0;
+        callCost = 0;
+        warningLevel = 0;
+        criticalLevel = 0;
+        actionList = [];
+    }
+
     return {
         setSettings,
         getSettings,
@@ -119,6 +128,7 @@ export default function SettingsBill() {
         actionsFor,
         totals,
         hasReachedWarningLevel,
-        hasReachedCriticalLevel
+        hasReachedCriticalLevel,
+        reset
     }
 }

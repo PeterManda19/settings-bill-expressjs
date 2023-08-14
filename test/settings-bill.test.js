@@ -1,3 +1,4 @@
+import { assert } from 'chai';
 import { equal, deepEqual } from 'assert';
 import SettingsBill from '../settings-bill.js';
 
@@ -97,4 +98,32 @@ describe('settings-bill', function(){
         equal(true, settingsBill.hasReachedCriticalLevel());
 
     });
+
+    // Test case for the reset function
+    it('should reset all settings and actionList to zero', function() {
+        const settingsBill = SettingsBill();
+
+        settingsBill.setSettings({
+            smsCost: 2,
+            callCost: 3,
+            warningLevel: 10,
+            criticalLevel: 20
+        });
+
+        settingsBill.recordAction('sms');
+        settingsBill.recordAction('call');
+
+        settingsBill.reset();
+
+        const settings = settingsBill.getSettings();
+        const actions = settingsBill.actions();
+
+        assert.equal(settings.smsCost, 0);
+        assert.equal(settings.callCost, 0);
+        assert.equal(settings.warningLevel, 0);
+        assert.equal(settings.criticalLevel, 0);
+        assert.deepEqual(actions, []);
+    });
+
+
 });
