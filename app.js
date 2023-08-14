@@ -89,6 +89,12 @@ app.get('/actions/:actionType', function(req, res) {
   res.render('actions', {actions: settingsBill.actionsFor(actionType)});
 });
 
+// POST route '/reset'
+app.post('/reset', function(req, res){
+  settingsBill.reset();
+  res.redirect('/');
+});
+
 const PORT = process.env.PORT || 3011;
 
 app.listen(3011, function(){
